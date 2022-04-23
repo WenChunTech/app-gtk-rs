@@ -15,15 +15,6 @@ fn main() {
 }
 
 fn build_ui(app: &Application) {
-    let btn = Button::builder()
-        .label("1")
-        .margin_bottom(12)
-        .margin_top(12)
-        .margin_start(12)
-        .margin_end(12)
-        .build();
-
-
     let btn_increase = Button::builder()
         .label("Increase")
         .margin_bottom(12)
