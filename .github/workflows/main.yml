@@ -21,6 +21,11 @@ jobs:
             archive-name: sgf-render-windows.7z
     env:
       VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
+      VCPKGDIR: "${{ github.workspace }}/vcpkg"
+      PKG_CONFIG_PATH: "%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
+      GTK_LIB_DIR: "%VCPKGDIR%\\installed\\x64-windows\\lib"
+      PATH: "${{ github.workspace }}\\pkg-config\\bin;%VCPKGDIR%\\installed\\x64-windows\\bin;%PATH%"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -50,12 +55,6 @@ jobs:
             ${{ hashFiles( 'Cargo.lock' ) }}-${{ runner.os }}-cache-key-v1
       - name: Get vcpkg(windows)
         if: ${{ runner.os == 'Windows' && steps.vcpkg-cache.outputs.cache-hit != 'true' }}
-
-        env:
-          VCPKGDIR: "${{ github.workspace }}/vcpkg"
-          PKG_CONFIG_PATH: "%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
-          GTK_LIB_DIR: "%VCPKGDIR%\\installed\\x64-windows\\lib"
-
         run: |
           cd ${{ github.workspace }}
           mkdir build -force
@@ -63,5 +62,9 @@ jobs:
           cd vcpkg
           .\bootstrap-vcpkg.bat
           .\vcpkg install gtk --triplet x64-windows
-          cd ${{ github.workspace }}
+
+      - name: Build GTK App
+        run: |
+          aria2 https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
+          7z e  -opkg-config pkg-config-lite-0.28-1_bin-win32.zip
           cargo build --release
