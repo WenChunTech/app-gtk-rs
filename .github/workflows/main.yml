@@ -24,7 +24,7 @@ jobs:
       VCPKGDIR: "${{ github.workspace }}/vcpkg"
       PKG_CONFIG_PATH: "%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
       GTK_LIB_DIR: "%VCPKGDIR%\\installed\\x64-windows\\lib"
-      PATH: "${{ github.workspace }}\\pkg-config\\bin;%VCPKGDIR%\\installed\\x64-windows\\bin;%PATH%"
+      PATH: ${{ github.workspace }}\\pkg-config\\bin;%VCPKGDIR%\\installed\\x64-windows\\bin;%PATH%
 
     steps:
       - name: Checkout
