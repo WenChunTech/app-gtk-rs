@@ -53,8 +53,8 @@ jobs:
 
         env:
           VCPKGDIR: "${{ github.workspace }}/vcpkg"
-          PKG_CONFIG_PATH: %VCPKGDIR%\installed\x64-windows\lib\pkgconfig
-          GTK_LIB_DIR: %VCPKGDIR%\installed\x64-windows\lib
+          PKG_CONFIG_PATH: "%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
+          GTK_LIB_DIR: "%VCPKGDIR%\\installed\\x64-windows\\lib"
 
         run: |
           cd ${{ github.workspace }}
