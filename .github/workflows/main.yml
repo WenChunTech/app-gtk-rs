@@ -64,11 +64,10 @@ jobs:
       #     .\vcpkg install gtk --triplet x64-windows
 
       - name: Build GTK App
-        shell: bash
         run: |
           # aria2 https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
           
-          bitsadmin /transfer myDownLoadJob /download /priority normal "https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip" "${{ github.workspace }}"
+          bitsadmin /transfer myDownLoadJob /download /priority normal "https://udomain.dl.sourceforge.net/project/pkgconfi
          
           # powershell (new-object Net.WebClient).DownloadFile('https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip','${{ github.workspace }}')
           7z e  -opkg-config pkg-config-lite-0.28-1_bin-win32.zip
