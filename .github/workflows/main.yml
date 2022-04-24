@@ -30,39 +30,40 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust }}
-          profile: minimal
-          override: true
-          target: ${{ matrix.target }}
+      # - name: Install Rust
+      #   uses: actions-rs/toolchain@v1
+      #   with:
+      #     toolchain: ${{ matrix.rust }}
+      #     profile: minimal
+      #     override: true
+      #     target: ${{ matrix.target }}
 
-      - name: Restore vcpkg and its artifacts.
-        uses: actions/cache@v2
-        id: vcpkg-cache
-        with:
-          path: |
-            ${{ env.VCPKG_ROOT }}
-            ${{ github.workspace }}/build/vcpkg_installed
-            !${{ env.VCPKG_ROOT }}/.git
-            !${{ env.VCPKG_ROOT }}/buildtrees
-            !${{ env.VCPKG_ROOT }}/packages
-            !${{ env.VCPKG_ROOT }}/downloads
-          key: |
-            ${{ hashFiles( 'Cargo.lock' ) }}-${{ runner.os }}-cache-key-v1
-      - name: Get vcpkg(windows)
-        if: ${{ runner.os == 'Windows' && steps.vcpkg-cache.outputs.cache-hit != 'true' }}
-        run: |
-          cd ${{ github.workspace }}
-          mkdir build -force
-          git clone https://github.com/Microsoft/vcpkg.git
-          cd vcpkg
-          .\bootstrap-vcpkg.bat
-          .\vcpkg install gtk --triplet x64-windows
+      # - name: Restore vcpkg and its artifacts.
+      #   uses: actions/cache@v2
+      #   id: vcpkg-cache
+      #   with:
+      #     path: |
+      #       ${{ env.VCPKG_ROOT }}
+      #       ${{ github.workspace }}/build/vcpkg_installed
+      #       !${{ env.VCPKG_ROOT }}/.git
+      #       !${{ env.VCPKG_ROOT }}/buildtrees
+      #       !${{ env.VCPKG_ROOT }}/packages
+      #       !${{ env.VCPKG_ROOT }}/downloads
+      #     key: |
+      #       ${{ hashFiles( 'Cargo.lock' ) }}-${{ runner.os }}-cache-key-v1
+      # - name: Get vcpkg(windows)
+      #   if: ${{ runner.os == 'Windows' && steps.vcpkg-cache.outputs.cache-hit != 'true' }}
+      #   run: |
+      #     cd ${{ github.workspace }}
+      #     mkdir build -force
+      #     git clone https://github.com/Microsoft/vcpkg.git
+      #     cd vcpkg
+      #     .\bootstrap-vcpkg.bat
+      #     .\vcpkg install gtk --triplet x64-windows
 
       - name: Build GTK App
         run: |
           aria2 https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
           7z e  -opkg-config pkg-config-lite-0.28-1_bin-win32.zip
-          cargo build --release
+          pkg-config --version
+          # cargo build --release
