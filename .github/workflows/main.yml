@@ -64,6 +64,7 @@ jobs:
       #     .\vcpkg install gtk --triplet x64-windows
 
       - name: Build GTK App
+        shell: powershell
         run: |
           # aria2 https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
           wget https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
