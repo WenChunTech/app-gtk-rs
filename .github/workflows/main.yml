@@ -67,9 +67,10 @@ jobs:
         shell: powershell
         run: |
           # aria2 https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
-          wget https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
+          #wget https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
+          wget -Uri "https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip" -OutFile "pkg-config.zip" 
           # powershell (new-object Net.WebClient).DownloadFile('https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip','${{ github.workspace }}')
           #7z e  -opkg-config pkg-config-lite-0.28-1_bin-win32.zip
-          Expand-Archive -Path .\pkg-config-lite-0.28-1_bin-win32.zip -DestinationPath .
+          Expand-Archive -Path .\pkg-config.zip -DestinationPath .
           pkg-config --version
           # cargo build --release
