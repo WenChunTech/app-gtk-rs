@@ -67,7 +67,7 @@ jobs:
         run: |
           # aria2 https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
           
-          bitsadmin /transfer myDownLoadJob /download /priority normal "https://udomain.dl.sourceforge.net/project/pkgconfi
+          bitsadmin /transfer myDownLoadJob /download /priority normal "https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zi" "${{ github.workspace }}"
          
           # powershell (new-object Net.WebClient).DownloadFile('https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip','${{ github.workspace }}')
           7z e  -opkg-config pkg-config-lite-0.28-1_bin-win32.zip
