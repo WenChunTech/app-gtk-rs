@@ -27,6 +27,12 @@ jobs:
       PATH: ${{ github.workspace }}\pkg-config\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
 
     steps:
+      - name: update git
+        run: |
+        
+          git update-git-for-windows   
+  
+  
       - name: Checkout
         uses: actions/checkout@v2
         with:
