@@ -66,7 +66,8 @@ jobs:
       - name: Build GTK App
         shell: bash
         run: |
-          aria2 https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
+          # aria2 https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
+          powershell (new-object Net.WebClient).DownloadFile('https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip','${{ github.workspace }}')
           7z e  -opkg-config pkg-config-lite-0.28-1_bin-win32.zip
           pkg-config --version
           # cargo build --release
