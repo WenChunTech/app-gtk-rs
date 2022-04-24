@@ -24,7 +24,7 @@ jobs:
       VCPKGDIR: "${{ github.workspace }}/vcpkg"
       PKG_CONFIG_PATH: "%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
       GTK_LIB_DIR: "%VCPKGDIR%\\installed\\x64-windows\\lib"
-      PATH: ${{ github.workspace }}\pkg-config\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
+      PATH: ${{ github.workspace }}\pkg-config-lite-0.28-1\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
 
     steps:
       # - name: Checkout
@@ -69,6 +69,7 @@ jobs:
           # aria2 https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
           wget https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip
           # powershell (new-object Net.WebClient).DownloadFile('https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip','${{ github.workspace }}')
-          7z e  -opkg-config pkg-config-lite-0.28-1_bin-win32.zip
+          #7z e  -opkg-config pkg-config-lite-0.28-1_bin-win32.zip
+          Expand-Archive -Path .\pkg-config-lite-0.28-1_bin-win32.zip -DestinationPath .
           pkg-config --version
           # cargo build --release
