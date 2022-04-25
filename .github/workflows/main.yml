@@ -61,18 +61,24 @@ jobs:
           VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
           PKG_CONFIG_PATH: "${{ github.workspace }}/vcpkg\\installed\\x64-windows\\lib\\pkgconfig"
           GTK_LIB_DIR: "${{ github.workspace }}/vcpkg\\installed\\x64-windows\\lib"
-        shell: cmd
+        # shell: cmd
+        shell: bash
         run: |
-          set VCPKG_ROOT="${{ github.workspace }}/vcpkg"
-          set PKG_CONFIG_PATH="${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
-          set GTK_LIB_DIR="${{ github.workspace }}/vcpkg/installed/x64-windows/lib"
-          set PATH=${{ github.workspace }}/pkg-config-lite-0.28-1/bin;${{ github.workspace }}/vcpkg/installed/x64-windows/bin;%VCPKG_ROOT%;%GTK_LIB_DIR%;%PKG_CONFIG_PATH%;%PATH%
+          cd ${{ github.workspace }}/vcpkg && ls -al
+          echo "*************************************************************************"
+          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib && ls -al
+          echo "*************************************************************************"
+          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig && ls -al
+          # set VCPKG_ROOT="${{ github.workspace }}/vcpkg"
+          # set PKG_CONFIG_PATH="${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
+          # set GTK_LIB_DIR="${{ github.workspace }}/vcpkg/installed/x64-windows/lib"
+          # set PATH=${{ github.workspace }}/pkg-config-lite-0.28-1/bin;${{ github.workspace }}/vcpkg/installed/x64-windows/bin;%VCPKG_ROOT%;%GTK_LIB_DIR%;%PKG_CONFIG_PATH%;%PATH%
+          7z
+          # pkg-config --version
 
-          pkg-config --version
+          # set VCPKG_ROOT
+          # set PKG_CONFIG_PATH
+          # set GTK_LIB_DIR
+          # set PATH
 
-          set VCPKG_ROOT
-          set PKG_CONFIG_PATH
-          set GTK_LIB_DIR
-          set PATH
-
-          cargo build --release
+          # cargo build --release
