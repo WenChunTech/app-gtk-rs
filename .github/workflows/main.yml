@@ -62,13 +62,13 @@ jobs:
           PKG_CONFIG_PATH: "${{ github.workspace }}/vcpkg\\installed\\x64-windows\\lib\\pkgconfig"
           GTK_LIB_DIR: "${{ github.workspace }}/vcpkg\\installed\\x64-windows\\lib"
         # shell: cmd
-        shell: bash
         run: |
-          cd ${{ github.workspace }}/vcpkg && ls -al
+          pwd
+          cd ${{ github.workspace }}/vcpkg && ls
           echo "*************************************************************************"
-          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib && ls -al
+          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib && ls
           echo "*************************************************************************"
-          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig && ls -al
+          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig && ls
           # set VCPKG_ROOT="${{ github.workspace }}/vcpkg"
           # set PKG_CONFIG_PATH="${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
           # set GTK_LIB_DIR="${{ github.workspace }}/vcpkg/installed/x64-windows/lib"
