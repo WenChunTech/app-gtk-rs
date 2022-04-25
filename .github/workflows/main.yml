@@ -24,6 +24,7 @@ jobs:
             !${{ env.VCPKG_ROOT }}/buildtrees
             !${{ env.VCPKG_ROOT }}/packages
             !${{ env.VCPKG_ROOT }}/downloads
+            !${{ github.workspace }}/target
           key: |
             ${{ hashFiles( 'Cargo.lock' ) }}-${{ runner.os }}-cache-key-v1
 
@@ -58,5 +59,10 @@ jobs:
       -  name: Build Exe
          shell: cmd
          run: |
+          set PKG_CONFIG_PATH="${{ github.workspace }}/vcpkg"
+          set VCPKGDIR="${{ github.workspace }}/vcpkg"
+          set PKG_CONFIG_PATH="%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
+          set GTK_LIB_DIR="%VCPKGDIR%\\installed\\x64-windows\\lib"
           set PATH=${{ github.workspace }}\pkg-config-lite-0.28-1\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
+          pkg-config --version
           cargo build --release --all-features
