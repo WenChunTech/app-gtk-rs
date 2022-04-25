@@ -13,14 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: nightly-x86_64-msvc
-          profile: minimal
-          override: true
-          target: x86_64-pc-windows-msvc
-
       - name: Restore vcpkg and GTK environment
         uses: actions/cache@v2
         id: vcpkg-cache
@@ -47,14 +39,19 @@ jobs:
 
       - name: Build GTK App for Windows
         shell: powershell
+        run: |
+          wget -Uri "https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip" -OutFile "pkg-config.zip" 
+          Expand-Archive -Path .\pkg-config.zip -DestinationPath .
+          pkg-config --version
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
         env:
           VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
           VCPKGDIR: "${{ github.workspace }}/vcpkg"
           PKG_CONFIG_PATH: "%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
           GTK_LIB_DIR: "%VCPKGDIR%\\installed\\x64-windows\\lib"
           PATH: ${{ github.workspace }}\pkg-config-lite-0.28-1\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
-        run: |
-          wget -Uri "https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip" -OutFile "pkg-config.zip" 
-          Expand-Archive -Path .\pkg-config.zip -DestinationPath .
-          pkg-config --version
-          cargo build --release
+      - run: cargo build --release --all-features
