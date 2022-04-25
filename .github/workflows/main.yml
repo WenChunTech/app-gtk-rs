@@ -7,17 +7,8 @@ on:
     branches: [main]
 jobs:
   job:
-    name: ${{ matrix.os }}-build
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-latest]
-        include:
-          - build: windows
-            os: windows-latest
-            rust: nightly-x86_64-msvc
-            target: x86_64-pc-windows-msvc
+    runs-on: windows-latest
+    
     env:
       VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
       VCPKGDIR: "${{ github.workspace }}/vcpkg"
@@ -32,10 +23,10 @@ jobs:
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: ${{ matrix.rust }}
+          toolchain: nightly-x86_64-msvc
           profile: minimal
           override: true
-          target: ${{ matrix.target }}
+          target: x86_64-pc-windows-msvc
 
       - name: Restore vcpkg and GTK environment
         uses: actions/cache@v2
