@@ -8,17 +8,10 @@ on:
 jobs:
   job:
     runs-on: windows-latest
-    
-    env:
-      VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
-      VCPKGDIR: "${{ github.workspace }}/vcpkg"
-      PKG_CONFIG_PATH: "%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
-      GTK_LIB_DIR: "%VCPKGDIR%\\installed\\x64-windows\\lib"
-      PATH: ${{ github.workspace }}\pkg-config-lite-0.28-1\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Rust
         uses: actions-rs/toolchain@v1
@@ -54,6 +47,12 @@ jobs:
 
       - name: Build GTK App for Windows
         shell: powershell
+        env:
+          VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
+          VCPKGDIR: "${{ github.workspace }}/vcpkg"
+          PKG_CONFIG_PATH: "%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
+          GTK_LIB_DIR: "%VCPKGDIR%\\installed\\x64-windows\\lib"
+          PATH: ${{ github.workspace }}\pkg-config-lite-0.28-1\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
         run: |
           wget -Uri "https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip" -OutFile "pkg-config.zip" 
           Expand-Archive -Path .\pkg-config.zip -DestinationPath .
