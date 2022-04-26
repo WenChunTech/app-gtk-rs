@@ -37,8 +37,8 @@ jobs:
           mkdir build -force
           git clone https://github.com/Microsoft/vcpkg.git
           cd vcpkg
-          #.\bootstrap-vcpkg.bat
-          #.\vcpkg install gtk --triplet x64-windows
+          .\bootstrap-vcpkg.bat
+          .\vcpkg install gtk --triplet x64-windows
 
       - name: Build GTK App for Windows
         shell: powershell
