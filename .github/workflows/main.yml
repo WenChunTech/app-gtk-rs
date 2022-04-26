@@ -16,6 +16,8 @@ jobs:
       - name: Restore vcpkg and GTK environment
         uses: actions/cache@v2
         id: vcpkg-cache
+        env:
+          VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
         with:
           path: |
             ${{ env.VCPKG_ROOT }}
