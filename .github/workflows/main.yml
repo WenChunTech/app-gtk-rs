@@ -64,6 +64,7 @@ jobs:
         shell: bash
         run: |
            pwd
+           ls -al
            #/d/a/app-gtk-rs/app-gtk-rs 
            cd ./vcpkg/installed/x64-windows/lib
            ls
