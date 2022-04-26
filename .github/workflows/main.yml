@@ -68,6 +68,8 @@ jobs:
            pwd
            ls -al
            #/d/a/app-gtk-rs/app-gtk-rs 
+           cd ./vcpkg
+           ls -al
            cd ./vcpkg/installed/x64-windows/lib
            ls
            echo "**************************************************"
