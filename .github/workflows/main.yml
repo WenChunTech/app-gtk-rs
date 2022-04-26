@@ -64,9 +64,11 @@ jobs:
         shell: bash
         run: |
            pwd
-           cd \d\a\app-gtk-rs\app-gtk-rs
-           ls 
+           #/d/a/app-gtk-rs/app-gtk-rs 
            cd ./vcpkg/installed/x64-windows/lib
+           ls
+           echo "**************************************************"
+           cd ./vcpkg/installed/x64-windows/lib/pkgconfig
            ls
           
 #          cd ${{ github.workspace }}/vcpkg && ls
