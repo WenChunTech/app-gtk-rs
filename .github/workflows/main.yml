@@ -63,7 +63,8 @@ jobs:
 #          GTK_LIB_DIR: "${{ github.workspace }}/vcpkg\\installed\\x64-windows\\lib"
         shell: bash
         run: |
-           cd ${{ github.workspace }}
+           pwd
+           cd \d\a\app-gtk-rs\app-gtk-rs
            ls 
            cd ./vcpkg/installed/x64-windows/lib
            ls
