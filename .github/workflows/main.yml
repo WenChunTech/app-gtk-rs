@@ -75,15 +75,11 @@ jobs:
            echo "**************************************************"
            cd ./x64-windows/lib/pkgconfig
            ls -al
-          
+           
       - name: Build
         shell: cmd
         run: |
-#          cd ${{ github.workspace }}/vcpkg && ls
-#          echo "*************************************************************************"
-#          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib && ls
-#          echo "*************************************************************************"
-#          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig && ls
+           
            set VCPKG_ROOT="${{ github.workspace }}/vcpkg"
            set PKG_CONFIG_PATH="${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
            set GTK_LIB_DIR="${{ github.workspace }}/vcpkg/installed/x64-windows/lib"
@@ -96,4 +92,11 @@ jobs:
            set PATH
 
            cargo build --release
+#          cd ${{ github.workspace }}/vcpkg && ls
+#          echo "*************************************************************************"
+#          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib && ls
+#          echo "*************************************************************************"
+#          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig && ls
+          
+
 #          7z
