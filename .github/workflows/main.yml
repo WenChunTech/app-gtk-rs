@@ -51,52 +51,57 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-        env:
-          VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
-          VCPKGDIR: "${{ github.workspace }}/vcpkg"
-          PKG_CONFIG_PATH: "%VCPKGDIR%\\installed\\x64-windows\\lib\\pkgconfig"
-          GTK_LIB_DIR: "%VCPKGDIR%\\installed\\x64-windows\\lib"
+        # env:
+        #   VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
+        #   VCPKGDIR: "${{ github.workspace }}/vcpkg"
+        #   PKG_CONFIG_PATH: "%VCPKGDIR%/installed/x64-windows/lib/pkgconfig"
+        #   GTK_LIB_DIR: "%VCPKGDIR%/installed/x64-windows/lib"
       #   PATH: ${{ github.workspace }}\pkg-config-lite-0.28-1\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
 
       - name: Build Exe
-#        env:
-#          VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
-#          PKG_CONFIG_PATH: "${{ github.workspace }}/vcpkg\\installed\\x64-windows\\lib\\pkgconfig"
-#          GTK_LIB_DIR: "${{ github.workspace }}/vcpkg\\installed\\x64-windows\\lib"
+        #        env:
+        #          VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
+        #          PKG_CONFIG_PATH: "${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
+        #          GTK_LIB_DIR: "${{ github.workspace }}/vcpkg/installed/x64-windows/lib"
         shell: bash
         run: |
-           pwd
-           ls -al
-           #/d/a/app-gtk-rs/app-gtk-rs 
-           pwd && cd ./vcpkg
-           ls -al
-           pwd && cd ./installed/
-           ls -al
-           echo "**************************************************"
-           cd ./x64-windows/lib/pkgconfig
-           ls -al
-           
+          pwd
+          ls -al
+          #/d/a/app-gtk-rs/app-gtk-rs 
+          pwd && cd ./vcpkg
+          ls -al
+          pwd && cd ./installed/
+          ls -al
+          echo "**************************************************"
+          cd ./x64-windows/lib/pkgconfig
+          ls -al
+
       - name: Build
         shell: cmd
+        env:
+          VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
+          PKG_CONFIG_PATH: "${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
+          GTK_LIB_DIR: "${{ github.workspace }}/vcpkg/installed/x64-windows/lib"
+          PATH: ${{ github.workspace }}/pkg-config-lite-0.28-1/bin;${{ github.workspace }}/vcpkg;${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig;${{ github.workspace }}/vcpkg/installed/x64-windows/lib;%PATH%
         run: |
-           
-           set VCPKG_ROOT="${{ github.workspace }}/vcpkg"
-           set PKG_CONFIG_PATH="${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
-           set GTK_LIB_DIR="${{ github.workspace }}/vcpkg/installed/x64-windows/lib"
-           set PATH=${{ github.workspace }}/pkg-config-lite-0.28-1/bin;${{ github.workspace }}/vcpkg/installed/x64-windows/bin;%VCPKG_ROOT%;%GTK_LIB_DIR%;%PKG_CONFIG_PATH%;%PATH%
+
+          #  set VCPKG_ROOT="${{ github.workspace }}/vcpkg"
+          #  set PKG_CONFIG_PATH="${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
+          #  set GTK_LIB_DIR="${{ github.workspace }}/vcpkg/installed/x64-windows/lib"
+          #  set PATH=${{ github.workspace }}/pkg-config-lite-0.28-1/bin;${{ github.workspace }}/vcpkg/installed/x64-windows/bin;%VCPKG_ROOT%;%GTK_LIB_DIR%;%PKG_CONFIG_PATH%;%PATH%
            pkg-config --version
 
-           set VCPKG_ROOT
-           set PKG_CONFIG_PATH
-           set GTK_LIB_DIR
-           set PATH
+          #  set VCPKG_ROOT
+          #  set PKG_CONFIG_PATH
+          #  set GTK_LIB_DIR
+          #  set PATH
 
            cargo build --release
+
 #          cd ${{ github.workspace }}/vcpkg && ls
 #          echo "*************************************************************************"
 #          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib && ls
 #          echo "*************************************************************************"
 #          cd ${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig && ls
-          
 
 #          7z
