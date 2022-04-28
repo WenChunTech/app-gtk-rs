@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  job:
+  Windows:
     runs-on: windows-latest
 
     steps:
@@ -43,7 +43,7 @@ jobs:
       - name: Build GTK App for Windows
         shell: powershell
         run: |
-          wget -Uri "https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip" -OutFile "pkg-config.zip" 
+          wget -Uri "https://udomain.dl.sourceforge.net/project/pkgconfiglite/0.28-1/pkg-config-lite-0.28-1_bin-win32.zip" -OutFile "pkg-config.zip"
           Expand-Archive -Path .\pkg-config.zip -DestinationPath .
           pkg-config --version
 
@@ -51,20 +51,9 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-        # env:
-        #   VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
-        #   VCPKGDIR: "${{ github.workspace }}/vcpkg"
-        #   PKG_CONFIG_PATH: "%VCPKGDIR%/installed/x64-windows/lib/pkgconfig"
-        #   GTK_LIB_DIR: "%VCPKGDIR%/installed/x64-windows/lib"
-      #   PATH: ${{ github.workspace }}\pkg-config-lite-0.28-1\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
 
       - name: Build
         shell: cmd
-#         env:
-#           VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
-#           PKG_CONFIG_PATH: "${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
-#           GTK_LIB_DIR: "${{ github.workspace }}/vcpkg/installed/x64-windows/lib"
-#           PATH: ${{ github.workspace }}/pkg-config-lite-0.28-1/bin;${{ github.workspace }}/vcpkg;${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig;${{ github.workspace }}/vcpkg/installed/x64-windows/lib;%PATH%
         run: |
            set VCPKG_ROOT=${{ github.workspace }}\vcpkg
            set PKG_CONFIG_PATH=%VCPKG_ROOT%\installed\x64-windows\lib\pkgconfig
@@ -73,3 +62,40 @@ jobs:
            pkg-config --version
            cargo build --release
 
+  MacOS:
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Rust for MacOS
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Install GTK4 for MacOS
+        run: brew install gtk4
+
+      -name: build gtk app for macos
+        run: cargo build --release
+
+	    # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: ${{ github.ref }}
+      #     draft: false
+      #     prerelease: false
+
+      # - name: Upload Release Asset
+      #   id: upload-release-asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./target/release/mac-release.zip
+      #     asset_name: macos-release.zip
+      #     asset_content_type: application/zip
