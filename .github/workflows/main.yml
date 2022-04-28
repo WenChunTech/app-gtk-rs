@@ -59,7 +59,7 @@ jobs:
       #   PATH: ${{ github.workspace }}\pkg-config-lite-0.28-1\bin;%VCPKGDIR%\installed\x64-windows\bin;%PATH%
 
       - name: Build
-#         shell: cmd
+        shell: cmd
 #         env:
 #           VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
 #           PKG_CONFIG_PATH: "${{ github.workspace }}/vcpkg/installed/x64-windows/lib/pkgconfig"
