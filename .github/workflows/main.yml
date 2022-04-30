@@ -21,7 +21,7 @@ jobs:
         run: |
           awk '{print}END{print "deb http://cz.archive.ubuntu.com/ubuntu jammy main"}' /etc/apt/sources.list > sources.list
           sudo cp -f sources.list /etc/apt/sources.list
-          sudo apt update && sudo apt upgrade -y
+          sudo apt update
           sudo apt install libgtk-4-dev build-essential -y
 
       - name: build gtk app for ubuntu
