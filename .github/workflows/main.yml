@@ -19,6 +19,7 @@ jobs:
 
       - name: Install GTK4 for ubuntu
         run: |
+          sudo echo "\ndeb http://cz.archive.ubuntu.com/ubuntu jammy main" >> /etc/apt/sources.list
           sudo apt update && sudo apt upgrade -y
           sudo apt install libgtk-4-dev build-essential -y
 
