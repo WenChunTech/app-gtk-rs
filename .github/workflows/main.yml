@@ -7,7 +7,7 @@ on:
     branches: [main]
 jobs:
   Ubuntu:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,8 +19,8 @@ jobs:
 
       - name: Install GTK4 for ubuntu
         run: |
-          apt update && apt upgrade -y
-          apt install libgtk-4-dev build-essential -y
+          sudo apt update && sudo apt upgrade -y
+          sudo apt install libgtk-4-dev build-essential -y
 
       - name: build gtk app for ubuntu
         run: cargo build --release
